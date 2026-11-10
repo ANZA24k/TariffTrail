@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Compare U.S. cotton knitwear tariff classifications against official CBP evidence and inspect GenLayer consensus receipts.">
+  <title>TariffTrail · Classification workspace</title>
+  <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+  <header><div class="wrap bar"><a class="brand" href="./"><span aria-hidden="true">TT</span> TariffTrail</a><div class="bar-actions"><a class="quiet" href="https://github.com/ANZA24k/TariffTrail">Source ↗</a><button id="connect" class="secondary" type="button">Connect browser wallet</button></div></div></header>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow"><span class="dot"></span> GENLAYER STUDIONET / U.S. TARIFF REVIEW</p>
+      <h1>Give every tariff<br>recommendation a trail.</h1>
+      <p>Compare similar cotton knit tops against a published customs ruling. GenLayer validators interpret the specifications independently and record the outcome with its evidence.</p>
+      <div class="tags"><span>U.S. · HTS Chapter 61</span><span>HS six-digit screening</span><span>Advisory review</span></div>
+    </section>
+    <div class="grid">
+      <section class="panel">
+        <div class="section-label">01 / CLASSIFICATION</div>
+        <h2>Review a product</h2>
+        <p class="sub">Try a sample or enter public specifications. Submitted details and signer addresses are publicly readable on-chain.</p>
+        <div class="actions samples" aria-label="Load a sample"><button type="button" data-sample="plain">Plain jersey</button><button type="button" data-sample="slub">Slub jersey</button><button type="button" data-sample="incomplete">Incomplete specs</button></div>
+        <form id="classification">
+          <label>Case ID<input name="caseId" required minlength="3" maxlength="64" pattern="[a-z0-9][a-z0-9\-]{2,63}" placeholder="e.g. sample-2026-001" autocapitalize="off"></label>
+          <div class="fields"><label>Construction<select name="construction"><option value="knit">Knit</option><option value="woven">Woven</option><option value="unknown">Unknown</option></select></label><label>Cotton by weight (%)<input name="cotton" type="number" min="0" max="100" step="1" value="100" required></label></div>
+          <label>Product observations<textarea name="details" minlength="25" maxlength="800" required placeholder="Describe fabric texture, knit structure, neckline, sleeves, hem, stitch density and intended use."></textarea></label>
+          <div class="actions"><button type="submit" class="primary">Prepare Studio signing</button><button type="submit" class="secondary" data-sign="wallet">Sign with browser wallet</button></div>
+        </form>
+        <section id="handoff" class="inset" hidden>
+          <h3>Sign in GenLayer Studio</h3>
+          <p>Open Run and Debug, select the TariffTrail deployment, expand <code>classify</code>, enter these values, and send with the built-in account in Normal (Full Consensus) mode. Paste the returned hash below.</p>
+          <div id="args"></div>
+          <a href="https://studio.genlayer.com/?import-contract=0x78bf9E1210effc384A2A15DB602bee50e16ac245" target="_blank" rel="noopener">Open GenLayer Studio ↗</a> · <a href="https://github.com/ANZA24k/TariffTrail/blob/main/docs/DEPLOYMENT.md">Studio setup</a>
+        </section>
+      </section>
+      <aside class="panel evidence">
+        <div class="section-label">02 / SOURCE PACK</div>
+        <h2>Two comparable garments</h2>
+        <p class="sub">In its ruling, U.S. Customs and Border Protection treated two similar cuts differently based on the jersey fabric.</p>
+        <div class="rule"><span>6109.10</span><div><strong>Plain cotton jersey</strong><p>T-shirt comparator</p></div></div>
+        <div class="rule"><span>6110.20</span><div><strong>Cotton slub jersey</strong><p>Pullover comparator</p></div></div>
+        <div class="actions sources"><a href="https://rulings.cbp.gov/api/getdoc/ny/2025/N350231.pdf" target="_blank" rel="noopener">CBP ruling N350231 ↗</a><a href="https://hts.usitc.gov/" target="_blank" rel="noopener">Current USITC schedule ↗</a></div>
+        <p id="rule-state" class="sub" aria-live="polite">Checking deployed rule pack…</p>
+      </aside>
+    </div>
+    <div class="grid lower">
+      <section class="panel" id="receipt">
+        <div class="section-label">03 / ON-CHAIN EVIDENCE</div>
+        <h2>Read a finalized case</h2>
+        <form id="lookup"><label>Case ID<input name="caseId" required placeholder="tt-plain-demo"></label><button class="primary" type="submit">Read case</button></form>
+        <div class="actions samples" aria-label="Read a live demo"><button type="button" data-case="tt-plain-demo">Plain demo</button><button type="button" data-case="tt-slub-demo">Slub demo</button><button type="button" data-case="tt-incomplete-demo">Incomplete demo</button></div>
+        <div id="case-result" aria-live="polite"></div>
+      </section>
+      <section class="panel" id="transaction">
+        <div class="section-label">04 / TRANSACTIONS</div>
+        <h2>Track consensus</h2>
+        <form id="track"><label>Transaction hash<input name="hash" required pattern="0x[0-9a-fA-F]{64}" placeholder="0x…"></label><button class="secondary" type="submit">Track transaction</button></form>
+        <p id="tx-status" role="status">Paste a Studio hash or sign directly to follow a transaction.</p>
+        <a id="tx-link" target="_blank" rel="noopener" hidden>Open transaction in explorer ↗</a>
+      </section>
+    </div>
+  </main>
+  <footer class="wrap"><span>TariffTrail · Evidence-backed screening for broker review</span><a id="contract-link" target="_blank" rel="noopener">Studionet contract ↗</a></footer>
+  <script type="module" src="/web/main.js"></script>
+</body>
+</html>

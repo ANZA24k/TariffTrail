@@ -1,0 +1,20 @@
+{
+  "name": "tarifftrail",
+  "version": "1.0.0",
+  "description": "Evidence-backed tariff classification on GenLayer",
+  "scripts": {
+    "test": "python -m unittest discover -s tests",
+    "dev": "vite",
+    "build": "vite build --base=./",
+    "test:live": "node tests/verify-live.mjs"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "genlayer-js": "1.1.8"
+  },
+  "devDependencies": {
+    "vite": "7.2.2"
+  },
+  "private": true
+}
